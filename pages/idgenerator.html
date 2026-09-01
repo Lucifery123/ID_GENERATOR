@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/idgenerator.css">
+    <link href="https://fonts.cdnfonts.com/css/palatino-linotype" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/amalfi-coast" rel="stylesheet">
+    <script src="../assets/js/JsBarcode.all.min.js"></script>
+
+</head>
+<title>
+    ID Generator
+</title>
+<body oncontextmenu="return false">
+
+    <div class="container">
+
+        <form action="">
+
+            <div class="row">
+
+                <class class="col">
+                    <center>
+                        <h1 data-text="Id Card Generator">Id Card Generator</h1>  
+                    </center>
+
+                    <div class="success">
+                        <center>
+                            <p>
+                                <h4>
+                                    <strong>Note: </strong>
+                                    Upload the 1x1 ID first before filling up.<br />
+                                </h4>
+                            </p>
+                        </center>
+                    </div>
+                    <tr>
+                        <td>
+                            <select id="validID" onchange="showID()">
+                                <option value="TIN">Tax Identification Card</option>
+                                <option value="NATIONAL">Philippine National ID</option>
+                                <option value="VOTER">Voters Identification Card</option>
+                                <option value="DRIVER">Driver's License Identification Card</option>
+                                <option value="POSTAL">Postal Identification Card</option>
+                                <option value="PRC">Professional Regulation Commission Identification Card</option>
+                                <option value="PHID">PhilHealth Identification Card</option>
+                            </select>
+                        </td>
+                    </tr><br />
+
+                    <div id="tinID">
+                        <center>
+                            <img src="" id="imgDisplayed" style="display:none;">
+                            <img src="" id="imgDisplayedSignature" style="display:none;">
+                            <canvas id="tin" style="border:2px solid"></canvas>
+                        </center>
+
+                        <div class="inputBox">
+                            <span><b>Fullname :</b></span>
+                            <input id="name" type="text" placeholder="e.g. Alexander Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>ID Number :</b></span>
+                            <input id="id" type="text" placeholder="e.g. 123-456-789-012">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="address" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 2 :</b></span>
+                            <input id="address2" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 3 :</b></span>
+                            <input id="address3" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="birthday" type="text" placeholder="e.g. 01-01-1999">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Issue Date :</b></span>
+                            <input id="issue" type="text" placeholder="e.g. 01-01-2022">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="signature" accept=".png" onchange="loadSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept="image/*" onchange="loadImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btn">
+                        <button href="#" id="down">Download</button>
+
+                        <!--<button id="logoutButton">Logout</button>-->
+                    </div>
+
+                    <div id="natID" style="display:none;">
+                        <center>
+                            <img src="" id="natImgDisplayed" style="display:none;">
+                            <canvas id="national" style="border:2px solid"></canvas>
+                        </center>
+
+                        <center>
+                            <h2><b><em>ADJUSTING TOOL :</em></b></h2>
+                        </center>
+
+                        <div class="editor">
+
+                            <div class="toolbar">
+
+                              <div class="toolbar-item">
+                                <label class="tool-label" for="brightness">Brightness</label>
+                                <input class="tool-input" type="range" id="brightness" min="0" max="200">
+                              </div>
+
+                              <div class="toolbar-item">
+                                <label class="tool-label" for="saturation">Saturation</label>
+                                <input class="tool-input" type="range" id="saturation" min="0" max="200">
+                              </div>
+
+                              <div class="toolbar-item">
+                                <label class="tool-label" for="blur">Blur</label>
+                                <input class="tool-input" type="range" id="blur" min="0" max="25">
+                              </div>
+                              
+                              <div class="toolbar-item">
+                                <label class="tool-label" for="inversion">Inversion</label>
+                                <input class="tool-input" type="range" id="inversion" min="0" max="100">
+
+                              </div>
+                            </div>
+                          </div>
+
+                        <div class="inputBox">
+                            <span><b>ID Number :</b></span>
+                            <input id="natId" type="text" placeholder="e.g. 1234-5678-9012-3456">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Last Name :</b></span>
+                            <input id="natLastName" type="text" placeholder="e.g. Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Given Name :</b></span>
+                            <input id="natGivenName" type="text" placeholder="e.g. Alexander">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Middle Name :</b></span>
+                            <input id="natMiddleName" type="text" placeholder="e.g. Daimatrious">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="natBirthday" type="text" placeholder="e.g. 01-01-1999">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="natAddress" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept=".png" onchange="loadNationalImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span ><b>Upload Second Image :</b></span>
+                            <input type="file" id="imageFileInput" accept=".png">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnNational">
+                        <button href="#" id="downNational">Download</button>
+                    </div>
+
+                    <div id="votersID" style="display:none;">
+                        <center>
+                            <img src="" id="votersImgDisplayed" style="display:none;">
+                            <img src="" id="votersSignatureDisplayed" style="display:none;">
+                            <canvas id="voters" style="border:2px solid"></canvas>
+                        </center>
+
+                        <div class="inputBox">
+                            <span><b>CITY :</b></span>
+                            <input id="votersCity" type="text" placeholder="e.g. MANILA CITY, NCR - THIRD DISTRICT">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>VIN :</b></span>
+                            <input id="votersVin" type="text" placeholder="e.g. 0000-0000A-A0000AAAA00000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Last Name :</b></span>
+                            <input id="votersLastName" type="text" placeholder="e.g. Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>First Name :</b></span>
+                            <input id="votersFirstName" type="text" placeholder="e.g. Alexander">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Middle Name :</b></span>
+                            <input id="votersMiddleName" type="text" placeholder="e.g. Daimatrious">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="votersBirthday" type="text" placeholder="e.g. January 01, 2000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Civil Status :</b></span>
+                            <input id="votersCivilStatus" type="text" placeholder="e.g. Single">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Citizenship :</b></span>
+                            <input id="votersCitizenship" type="text" placeholder="e.g. Filipino">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="votersAddress1" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 2 :</b></span>
+                            <input id="votersAddress2" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Precinct Number :</b></span>
+                            <input id="votersPrecinctNumber" type="text" placeholder="e.g. 01-01-2022">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="votersSignature" accept=".png" onchange="loadVotersSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept="image/*" onchange="loadVotersImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnVoters">
+                        <button href="#" id="downVoters">Download</button>
+                    </div>
+
+                    <div id="driversID" style="display:none;">
+                        <center>
+                            <img src="" id="driversImgDisplayed" style="display:none;">
+                            <img src="" id="driversSignatureDisplayed" style="display:none;">
+                            <img src="../assets/images/DrivingLicenseLines.png" id="driversLicenseLines" style="display:none;">
+                            <img src="../assets/images/DrivingLicenseLogo.png" id="driversLicenseLogo" style="display:none;">
+                            <canvas id="drivers" style="border:2px solid"></canvas>
+                        </center>
+                    
+                        <div class="inputBox">
+                            <span><b>Fullname :</b></span>
+                            <input id="driversName" type="text" placeholder="e.g. Alexander Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Nationality :</b></span>
+                            <input id="driversNationality" type="text" placeholder="e.g. PHL">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Sex :</b></span>
+                            <input id="driversSex" type="text" placeholder="e.g. M">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="driversBirthday" type="text" placeholder="e.g. 2000/01/30">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Weight :</b></span>
+                            <input id="driversWeight" type="text" placeholder="e.g. 77">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Height :</b></span>
+                            <input id="driversHeight" type="text" placeholder="e.g. 1.76">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="driversAddress1" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 2 :</b></span>
+                            <input id="driversAddress2" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>License No. :</b></span>
+                            <input id="driversLicenseNo" type="text" placeholder="e.g. A00-00-000000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Registration Date :</b></span>
+                            <input id="driversRegistration" type="text" placeholder="e.g. 2000/01/30">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Expiration Date :</b></span>
+                            <input id="driversExpiration" type="text" placeholder="e.g. 2030/01/30">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Agency Code :</b></span>
+                            <input id="driversAgency" type="text" placeholder="e.g. N29">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Blood Type :</b></span>
+                            <input id="driversBloodType" type="text" placeholder="e.g. B+">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Eyes Color :</b></span>
+                            <input id="driversEyesColor" type="text" placeholder="e.g. Black">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Restriction :</b></span>
+                            <input id="driversRestriction" type="text" placeholder="e.g. 1,2">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Conditions :</b></span>
+                            <input id="driversConditions" type="text" placeholder="e.g. None">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>License No. with Name Under 1x1 :</b></span>
+                            <input id="driversLicenseWithName" type="text" placeholder="e.g. A00-00-000000 Alexander Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="driversSignature" accept=".png" onchange="loadDriversSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept=".png" onchange="loadDriversImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnDrivers">
+                        <button href="#" id="downDrivers">Download</button>
+
+                    </div>
+
+                    <div id="postalID" style="display:none;">
+                        <center>
+                            <img src="" id="postalImgDisplayed" style="display:none;">
+                            <img src="" id="postalSignatureDisplayed" style="display:none;">
+                            <canvas id="postal" style="border:2px solid"></canvas>
+                        </center>
+
+                        <div class="inputBox">
+                            <span><b>ID Number :</b></span>
+                            <input id="postalId" type="text" placeholder="e.g. PAN 123456789012-0">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Fullname :</b></span>
+                            <input id="postalName" type="text" placeholder="e.g. Alexander Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="postalAddress1" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 2 :</b></span>
+                            <input id="postalAddress2" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 3 :</b></span>
+                            <input id="postalAddress3" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="postalBirthday" type="text" placeholder="e.g. 01 JAN 2000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Nationality :</b></span>
+                            <input id="postalNationality" type="text" placeholder="e.g. FILIPINO">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Valid Until :</b></span>
+                            <input id="postalValidUntil" type="text" placeholder="e.g. 01 JAN 2030">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Issuing Post Office :</b></span>
+                            <input id="postalPostOffice" type="text" placeholder="e.g. PHL POST">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="postalSignature" accept=".png" onchange="loadPostalSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept="image/*" onchange="loadPostalImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnPostal">
+                        <button href="#" id="downPostal">Download</button>
+
+
+                    </div>
+
+                    <div id="prcID" style="display:none;">
+                        <center>
+                            <img src="" id="prcImgDisplayed" style="display:none;">
+                            <img src="" id="prcImgDisplayed2" style="display:none;">
+                            <img src="" id="prcSignatureDisplayed" style="display:none;">
+                            <canvas id="prc" style="border:2px solid"></canvas>
+                        </center>
+
+                        <div class="inputBox">
+                            <span><b>Last Name :</b></span>
+                            <input id="prcLastName" type="text" placeholder="e.g. Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>First Name :</b></span>
+                            <input id="prcFirstName" type="text" placeholder="e.g. Alexander">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Middle Name :</b></span>
+                            <input id="prcMiddleName" type="text" placeholder="e.g. Daimatrious">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth :</b></span>
+                            <input id="prcBirthday" type="text" placeholder="e.g. 01 JAN 2000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Registration No. :</b></span>
+                            <input id="prcRegistrationNo" type="text" placeholder="e.g. 0000000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Registration Date :</b></span>
+                            <input id="prcRegistrationDate" type="text" placeholder="e.g. 2000/01/30">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Job :</b></span>
+                            <input id="prcJob" type="text" placeholder="e.g. Architect">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Valid Until :</b></span>
+                            <input id="prcValidUntil" type="text" placeholder="e.g. 01/01/2030">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="prcSignature" accept=".png" onchange="loadPrcSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept="image/*" onchange="loadPrcImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnPrc">
+                        <button href="#" id="downPrc">Download</button>
+                    </div>
+
+                    <div id="phID" style="display:none;">
+                        <center>
+                            <img src="" id="phImgDisplayed" style="display:none;">
+                            <img src="" id="phSignatureDisplayed" style="display:none;">
+                            <canvas id="ph" style="border:2px solid"></canvas>
+                        </center>
+
+                        <div class="inputBox">
+                            <span><b>ID Number :</b></span>
+                            <input id="phIdNum" type="text" placeholder="e.g. 123-456-789-012">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Barcode ID Number : </b>[Add 3 space per number]</span>
+                            <input id="phBCIdNum" type="text" placeholder="e.g. 123-456-789-012">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Fullname :</b></span>
+                            <input id="phName" type="text" placeholder="e.g. Alexander Grayson">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Date of Birth And Sex :</b></span>
+                            <input id="phBirthdayAndSex" type="text" placeholder="e.g. January 01, 2000">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address :</b></span>
+                            <input id="phAddress" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Address Extension 2 :</b></span>
+                            <input id="phAddress2" type="text" placeholder="e.g. Quezon City">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Electronic Signature :</b></span>
+                            <input type="file" id="prcSignature" accept=".png" onchange="loadPhSignatureImage(event)">
+                        </div>
+
+                        <div class="inputBox">
+                            <span><b>Upload Image :</b></span>
+                            <input type="file" id="file" accept="image/*" onchange="loadPhImage(event)">
+                        </div>
+
+                        <input type="reset" value="Clear" class="clear-btnPh">
+                        <button href="#" id="downPh">Download</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <br />
+    <script type="text/javascript" src="../assets/js/showID.js"></script>
+    <script type="text/javascript" src="../assets/js/idgenerator.js"></script>
+    <script type="text/javascript" src="../assets/js/disableInspect.js"></script>
+
+</body>
+</html>
