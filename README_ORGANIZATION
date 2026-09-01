@@ -1,1 +1,12 @@
+ID GENERATOR — ORGANIZED PROJECT
+
+index.html: main entry page (if present)
+pages/: secondary HTML pages
+assets/css/: stylesheets
+assets/js/: JavaScript
+assets/images/: images/icons
+assets/fonts/: font files
+data/: JSON/CSV/XML data
+
+Files were grouped by type and obvious local references were updated.
 
