@@ -4,10 +4,10 @@ function Login() {
 
     if (username == "Grayson0407" && password == "Grayson0407") {
         alert("Login Successfully!");
-        window.location.href = "idgenerator.html";
+        window.location.href = "pages/idgenerator.html";
         return false;
     } else {
-        alert("TANGINA KA AH TRY TRY KA PA");
+        alert("Nice Try....");
         return false;
     }
 }
